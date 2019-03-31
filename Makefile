@@ -24,6 +24,5 @@ $(TEST_TARGET): $(TEST_SRCS)
 
 
 clean:
-	rm $(TARGET).exe
-	rm $(DEBUG_TARGET).exe
-	rm $(TEST_TARGET).exe
+	if [ -d "out" ];   then rm -r out;   fi;
+	if [ -d "build" ]; then rm -r build; fi;
