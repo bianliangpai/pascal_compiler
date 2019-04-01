@@ -10,10 +10,10 @@ TEST_SRCS_DIR=test
 TEST_SRCS=$(wildcard $(TEST_SRCS_DIR)/*.cpp)
 
 LIBRARY_DIR=
-TEST_LIBRARY_DIR=-L/usr/lib/x86_64-linux-gnu
+TEST_LIBRARY_DIR=
 
 LIBRARIES=
-TEST_LIBRARIES=-lpthread -lgtest
+TEST_LIBRARIES=-lgtest -lpthread
 
 TARGET_DIR=out
 
@@ -24,15 +24,17 @@ TEST_TARGET=unittest
 all: $(RELEASE_TARGET) $(DEBUG_TARGET) $(TEST_TARGET)
 
 $(RELEASE_TARGET): $(SRCS)
-	$(CC) $(CXX_RELEASE_FLAGS) $(LIBRARY_DIR)      $(LIBRARIES)      $(SRCS)      -o $(TARGET_DIR)/$(TARGET)
+	mkdir -p out
+	$(CC) $(SRCS)      $(CXX_RELEASE_FLAGS) $(LIBRARY_DIR)      $(LIBRARIES)      -o $(TARGET_DIR)/$(RELEASE_TARGET)
 
 $(DEBUG_TARGET): $(SRCS)
-	$(CC) $(CXX_DEBUG_FLAGS)   $(LIBRARY_DIR)      $(LIBRARIES)      $(SRCS)      -o $(TARGET_DIR)/$(DEBUG_TARGET)
+	mkdir -p out
+	$(CC) $(SRCS)      $(CXX_DEBUG_FLAGS)   $(LIBRARY_DIR)      $(LIBRARIES)      -o $(TARGET_DIR)/$(DEBUG_TARGET)
 
 $(TEST_TARGET): $(TEST_SRCS)
-	$(CC) $(CXX_TEST_FLAGS)    $(TEST_LIBRARY_DIR) $(TEST_LIBRARIES) $(TEST_SRCS) -o $(TARGET_DIR)/$(TEST_TARGET)
+	mkdir -p out
+	$(CC) $(TEST_SRCS) $(CXX_TEST_FLAGS)    $(TEST_LIBRARY_DIR) $(TEST_LIBRARIES) -o $(TARGET_DIR)/$(TEST_TARGET)
 
 
 clean:
-	if [ -d "out" ];   then rm -r out;   fi;
-	if [ -d "build" ]; then rm -r build; fi;
+	if [ -d "out" ]; then rm -r out; fi;
