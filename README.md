@@ -1,4 +1,4 @@
-##Dependencies:
-###gtest
-###cmake
-###pthread
+## Dependencies:
+### gtest
+### cmake
+### pthread
