@@ -9,18 +9,28 @@ SRCS=$(wildcard $(SRCS_DIR)/*.cpp)
 TEST_SRCS_DIR=test
 TEST_SRCS=$(wildcard $(TEST_SRCS_DIR)/*.cpp)
 
-TARGET=pascal_compiler
-DEBUG_TARGET=debug
-TEST_TARGET=test
+LIBRARY_DIR=
+TEST_LIBRARY_DIR=-L/usr/lib/x86_64-linux-gnu
 
-$(TARGET): $(SRCS)
-	$(CC) $(CXX_RELEASE_FLAGS) $(SRCS)      -o $(TARGET)
+LIBRARIES=
+TEST_LIBRARIES=-lpthread -lgtest
+
+TARGET_DIR=out
+
+RELEASE_TARGET=pascal_compiler
+DEBUG_TARGET=debug
+TEST_TARGET=unittest
+
+all: $(RELEASE_TARGET) $(DEBUG_TARGET) $(TEST_TARGET)
+
+$(RELEASE_TARGET): $(SRCS)
+	$(CC) $(CXX_RELEASE_FLAGS) $(LIBRARY_DIR)      $(LIBRARIES)      $(SRCS)      -o $(TARGET_DIR)/$(TARGET)
 
 $(DEBUG_TARGET): $(SRCS)
-	$(CC) $(CXX_DEBUG_FLAGS)   $(SRCS)      -o $(DEBUG_TARGET)
+	$(CC) $(CXX_DEBUG_FLAGS)   $(LIBRARY_DIR)      $(LIBRARIES)      $(SRCS)      -o $(TARGET_DIR)/$(DEBUG_TARGET)
 
 $(TEST_TARGET): $(TEST_SRCS)
-	$(CC) $(CXX_TEST_FLAGS)    $(TEST_SRCS) -o $(TEST_TARGET)
+	$(CC) $(CXX_TEST_FLAGS)    $(TEST_LIBRARY_DIR) $(TEST_LIBRARIES) $(TEST_SRCS) -o $(TARGET_DIR)/$(TEST_TARGET)
 
 
 clean:
