@@ -7,7 +7,7 @@ CXX_TEST_FLAGS=$(CXX_DEBUG_FLAGS)
 SRCS_DIR=src
 SRCS=$(wildcard $(SRCS_DIR)/*.cpp)
 TEST_SRCS_DIR=test
-TEST_SRCS=$(wildcard $(TEST_SRCS_DIR)/*.cpp)
+TEST_SRCS=$(filter-out src/main.cpp, $(SRCS)) $(wildcard $(TEST_SRCS_DIR)/*.cpp)
 
 INC_DIR=-Iinc
 
