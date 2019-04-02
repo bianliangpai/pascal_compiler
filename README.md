@@ -7,12 +7,12 @@
 
 ### gtest
 ```bash
-  cd /path/to/googletest <br/>
-  mkdir build            <br/>
-  cd build               <br/>
-  cmake ..               <br/>
-  make                   <br/>
-  sudo make install      <br/>
+  cd /path/to/googletest
+  mkdir build
+  cd build
+  cmake ..
+  make
+  sudo make install
 ```
 ### pthread
 ```bash
